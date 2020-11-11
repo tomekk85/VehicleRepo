@@ -1,4 +1,4 @@
-package Vehicles;
+package VehiclesConsole.Models;
 
 public class VehicleStaticFactory {
     public static Vehicle make (String type, String producer, int speed) {

@@ -1,4 +1,4 @@
-package Vehicles;
+package VehiclesConsole.Models;
 
 public class Ship extends Vehicle {
 

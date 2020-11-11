@@ -1,4 +1,4 @@
-package Vehicles;
+package VehiclesConsole.Models;
 
 public class Car extends Vehicle {
 
