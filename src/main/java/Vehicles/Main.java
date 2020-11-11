@@ -23,7 +23,7 @@ public class Main {
         }
 
         //tworzenie komparatora do sortowania listy
-        Comparator<Vehicle> compareByTopSpeed= new Comparator<Vehicle>() {
+        Comparator<Vehicle> compareByTopSpeed= new Comparator<>() {
             @Override
             // obiekt klasy Vehicle o wyższej wartości właściwości topSpeed przed obiektem o niższej wartości
             public int compare(Vehicle o1, Vehicle o2) {
@@ -31,24 +31,51 @@ public class Main {
             }
         };
 
-        //tablica możliwych polecen uzytkownika
-        String[] userInputArray = {"CAR", "SHIP", "PLANE", "BIKE", "ALL", "EXIT"};//tablica pomocnicza!!
+        //tablica typów
+        String[] vehicleTypesArray = {"CAR", "SHIP", "PLANE", "BIKE"};
 
         //input uzytkownika
-        String userInput = userInputArray[0];
-        //użycie strumienia
-        list.stream()
-                .filter(//1.filtrowanie listy
-                        new Predicate<Vehicle>() {// w tym celu tworzymy obiekt typu Predicate
+        String userInput = "ALL";
+
+        String output = "";
+        if("All".equalsIgnoreCase(userInput)){
+            for(String type :vehicleTypesArray){
+                System.out.println(
+                        "Najszybszy pojazd w kategorii " + type + ":\n" +
+                        getFastestVehicle(list, type)
+                );
+            }
+
+        } else {
+            System.out.println(
+                    "Najszybszy pojazd w kategorii " + userInput +":\n" +
+                getFastestVehicle(list, userInput)
+            );
+        }
+
+
+
+    }
+    //funkcja zwraca obiekt typu Vehicle dla podanej listy obiektów Vehicle i zadanego typu Vehicle
+
+    public static Vehicle getFastestVehicle(ArrayList<Vehicle> list, String vehicleType){
+
+        Predicate<Vehicle> predicate = new Predicate<>() {
             @Override
             public boolean test(Vehicle vehicle) {
-                return userInput.equalsIgnoreCase("ALL") ? //jeżeli input użtywkownika=="all"
-                        true:                                          //zwróć wszystko
-                        vehicle.getVehicleType().equalsIgnoreCase(userInput);// jeżeli nie - przyrównaj input użytkownika do typu Vehicle
+                return vehicle.getVehicleType().equalsIgnoreCase(vehicleType);
             }
-        })
-                .sorted(compareByTopSpeed)//2.sortowanie listy za pomocą komparatora
-                .forEach(System.out::println);//wypisanie listy
+        };
+        Comparator<Vehicle> comparator = new Comparator<>() {
+            @Override
+            // obiekt klasy Vehicle o wyższej wartości właściwości topSpeed przed obiektem o niższej wartości
+            public int compare(Vehicle o1, Vehicle o2) {
+                return o1.getTopSpeed() - o2.getTopSpeed();
+            }
+        };
 
+
+        return list.stream().filter(predicate)
+                .max(comparator).get();
     }
 }

@@ -31,6 +31,6 @@ public  class Vehicle {
     }
     @Override
     public String toString(){
-        return "[Producer]:" + getProducer() + ", [Top speed]:" + getTopSpeed();
+        return "[Producent]:" + getProducer() + ", [Prędkość]:" + getTopSpeed();
     }
 }
