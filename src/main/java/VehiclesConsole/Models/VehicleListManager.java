@@ -49,7 +49,7 @@ public class VehicleListManager {
 
     }
 
-    public String fastestVehicleOfAllTypesMsg(){
+    public String fastestVehicleOfEveryTypeMsg(){
         String output = "";
         for(String type: vehicleTypes) {
             output = output.concat(fastestVehicleOfOneTypeMsg(type) +"\n") ;
