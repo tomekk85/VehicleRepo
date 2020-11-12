@@ -28,37 +28,41 @@ public class Main {
         //input uzytkownika
 
 
-        String[] arr = {"", "CAR", "SHIP", "PLANE", "BIKE", "ALL", "EXIT"};
+        String[] arrOfTypes = {"", "CAR", "SHIP", "PLANE", "BIKE", "ALL", "EXIT"};
 
-        String strInput = "";
+        int userInput = 0;
 
-        while(!"6".equals(strInput)){
+        while (userInput != 6) {
             printMenu();
-            Scanner scanner = new Scanner(System.in);
-            strInput = loadInput();
-
-            if("6".equals(strInput)){break;}
-            int userInput = Integer.parseInt(strInput);
+            userInput = loadInput();
+            if (userInput == 6) {
+                break;
+            }
 
             VehicleListManager manager = new VehicleListManager(list);
 
-            if("all".equalsIgnoreCase(arr[userInput])){
+            if ("all".equalsIgnoreCase(arrOfTypes[userInput])) {
                 System.out.println(manager.fastestVehicleOfEveryTypeMsg());
             } else {
-                System.out.println(manager.fastestVehicleOfOneTypeMsg(arr[userInput]));
+                System.out.println(manager.fastestVehicleOfSpecifiedTypeMsg(arrOfTypes[userInput]));
             }
+
             waitForKey();
-            System.out.println("\n");
+            //System.out.println("\n");
         }
 
     }
-    public static void waitForKey(){
-        Scanner scan = new Scanner(System.in);
+
+    //drukuje do konsoli komunikat
+    //i czeka na potwierdzenie przez użytkonika
+    public static void waitForKey() {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Naciśnij Enter, aby kontynuować");
-        scan.nextLine();
+        scanner.nextLine();
     }
 
-    public static void printMenu(){
+    //drukuje menu do konsoli
+    public static void printMenu() {
         String menu = "Witaj w programie POJAZD!\n" +
                 "Wybierz, kategorię do wyszukania najszybszych pojazdów\n" +
                 "1. Samochód\n" +
@@ -70,15 +74,18 @@ public class Main {
         System.out.println(menu);
     }
 
-    public static String loadInput(){
-
+    //pobiera dane od użytkownika,
+    //oraz przeprowadza walidację
+    //zwraca wartość z przedziału 1-6
+    public static int loadInput() {
         String error = "Musisz podać liczbę z przedziału 1-6";
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        while(!input.matches("[1-6]")) {
+        while (!input.matches("[1-6]")) {
             System.out.println(error);
             input = scanner.nextLine();
         }
-        return input;
+
+        return Integer.parseInt(input);
     }
 }

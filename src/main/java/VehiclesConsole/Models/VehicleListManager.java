@@ -24,7 +24,7 @@ public class VehicleListManager {
     public Vehicle getFastestVehicle(ArrayList<Vehicle> list, String vehicleType) {
 
         Predicate<Vehicle> predicate = new Predicate<>() {
-            @Override
+            @Override//zwraca wartość true gdy obiekt Vehicle jest obiektem podanego jako argument funkcji typu
             public boolean test(Vehicle vehicle) {
                 return vehicle.getVehicleType().equalsIgnoreCase(vehicleType);
             }
@@ -37,11 +37,13 @@ public class VehicleListManager {
             }
         };
 
-        return list.stream().filter(predicate)
-                .max(comparator).get();
+        return list.stream()
+                .filter(predicate)
+                .max(comparator)
+                .get();
     }
 
-    public String fastestVehicleOfOneTypeMsg(String vehicleType){
+    public String fastestVehicleOfSpecifiedTypeMsg(String vehicleType){
         vehicleType = vehicleType.toUpperCase();
         return vehicleTypes.contains(vehicleType) ?
                 "Najszybszy pojazd w kategorii " + vehicleType + ":\n" + getFastestVehicle(vehiclesList, vehicleType):
@@ -52,7 +54,7 @@ public class VehicleListManager {
     public String fastestVehicleOfEveryTypeMsg(){
         String output = "";
         for(String type: vehicleTypes) {
-            output = output.concat(fastestVehicleOfOneTypeMsg(type) +"\n") ;
+            output = output.concat(fastestVehicleOfSpecifiedTypeMsg(type) +"\n") ;
         }
         return output;
     }
