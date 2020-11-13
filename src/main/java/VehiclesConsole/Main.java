@@ -25,9 +25,7 @@ public class Main {
             list.add(VehicleStaticFactory
                     .make(row[0], row[1], Integer.parseInt(row[2])));
         }
-        //input uzytkownika
-
-
+        
         String[] arrOfTypes = {"", "CAR", "SHIP", "PLANE", "BIKE", "ALL", "EXIT"};
 
         int userInput = 0;
